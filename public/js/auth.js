@@ -2,10 +2,10 @@ $('body').on('change','#email',function(e){
     $.ajax({
         url: '/auth/validate/email?email=' + $('#email').val(),
         type: "GET",
-        success : function(data) {
+        success : function() {
             $('#email').removeClass('is-invalid');
         },
-        error : function(data) {
+        error : function() {
             $('#email').addClass('is-invalid');
         }
     })
