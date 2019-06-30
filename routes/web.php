@@ -14,3 +14,9 @@
 Route::get('/', function () {
     return view('welcome');
 });
+
+Auth::routes();
+
+Route::get('/auth/validate/email', 'Auth\RegisterController@validateEmail')->name('validateEmail');
+
+Route::get('/home', 'HomeController@index')->name('home');
