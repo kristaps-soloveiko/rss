@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
+use App\Adapter\TheRegisterRssAdapter;
+use App\Service\RssService;
+use App\Service\WordCounterService;
 
 class HomeController extends Controller
 {
@@ -17,12 +19,18 @@ class HomeController extends Controller
     }
 
     /**
-     * Show the application dashboard.
+     * Displays Rss word count for first page
      *
-     * @return \Illuminate\Contracts\Support\Renderable
+     * @param RssService $rssService
+     * @param WordCounterService $wordCounterService
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      */
-    public function index()
+    public function index(RssService $rssService, WordCounterService $wordCounterService)
     {
-        return view('home');
+        $text = $rssService->getText('https://www.theregister.co.uk/software/headlines.atom', new TheRegisterRssAdapter());
+
+        $wordCounts = $wordCounterService->count($text, 10);
+
+        return view('home', ['words' => $wordCounts]);
     }
 }

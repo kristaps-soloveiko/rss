@@ -3,9 +3,9 @@
 @section('content')
 <div class="container">
     <div class="row justify-content-center">
-        <div class="col-md-8">
+        <div class="col-md-12">
             <div class="card">
-                <div class="card-header">Dashboard</div>
+                <div class="card-header">Top 10 word counts</div>
 
                 <div class="card-body">
                     @if (session('status'))
@@ -13,8 +13,9 @@
                             {{ session('status') }}
                         </div>
                     @endif
-
-                    You are logged in!
+                    @foreach ($words as $word => $count)
+                            <div class="col-md-12 text-left">Word <strong>{{$word}}</strong> was found <strong>{{$count}}</strong> times</div>
+                    @endforeach
                 </div>
             </div>
         </div>
